@@ -25,12 +25,6 @@ export class PromptComponent implements OnInit {
     this.initialResponse = this.question.response;
   }
 
-  selectOption(option: string): void {
-    if (!this.question) return;
-
-    this.question.response = option;
-  }
-
   goBack(): void {
     if (this.index <= 0) return;
 
