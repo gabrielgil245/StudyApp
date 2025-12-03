@@ -9,7 +9,7 @@ This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
 
 ## 🚀 Live Demo (GitHub Pages)
 
-**URL:** _To be added after deployment_
+**URL:** https://gabrielgil245.github.io/StudyApp/quiz-selection
 
 ---
 
