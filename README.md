@@ -3,6 +3,8 @@
 A lightweight, browser-based study and quiz application built with **Angular 16.2.16** and styled using **Bootstrap 5.3.8**.  
 This app allows users to upload their own JSON-formatted quiz files and dynamically generate quizzes directly in the browser — no backend required.
 
+This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
+
 ---
 
 ## 🚀 Live Demo (GitHub Pages)
