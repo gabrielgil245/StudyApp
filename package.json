@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production && ng deploy --base-href=/StudyApp/ --dir=dist/study-app/browser"
   },
   "private": true,
   "dependencies": {
