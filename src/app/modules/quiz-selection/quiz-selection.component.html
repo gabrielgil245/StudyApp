@@ -1,0 +1,11 @@
+<div class="grid">
+    <div class="row">
+        <h1 class="col-12 h1 text-center my-3">Select a Quiz JSON File</h1>
+        <div class="offset-3 col-6 d-flex justify-content-center">
+            <input class="form-control my-3" type="file" (change)="onFileSelected($event)" accept=".json" required/>
+        </div>
+        <div *ngIf="errorMessage" class="offset-3 col-6 text-center text-danger">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>

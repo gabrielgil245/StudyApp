@@ -1,27 +1,49 @@
 # StudyApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+A lightweight, browser-based study and quiz application built with **Angular 16.2.16** and styled using **Bootstrap 5.3.8**.  
+This app allows users to upload their own JSON-formatted quiz files and dynamically generate quizzes directly in the browser — no backend required.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Live Demo (GitHub Pages)
 
-## Code scaffolding
+**URL:** _To be added after deployment_
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 📌 Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- 📁 **Upload your own quiz via JSON file**
+- 📝 **Dynamic quiz generation**
+- 📊 **Results page with score summary**
+- 🎨 **Bootstrap-based responsive UI**
+- 🧭 **Three-page workflow:**
+  - **Quiz Selection (Landing Page):** user uploads a JSON quiz
+  - **Quiz Page:** displays questions one by one with multiple-choice answers
+  - **Results Page:** shows score, correct answers, and explanations
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 📂 JSON File Format
 
-## Running end-to-end tests
+Your uploaded JSON file should follow this structure:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```json
+{
+  "questions": [
+    {
+      "id": "1",
+      "prompt": "What is HTML5?",
+      "options": [
+        "A programming language",
+        "A markup language for structuring and presenting content on the web",
+        "A database management system",
+        "A web server software"
+      ],
+      "answer": "A markup language for structuring and presenting content on the web",
+      "category": "Technology",
+      "difficulty": "Easy",
+      "explanation": "HTML5 is the latest version of the Hypertext Markup Language used for structuring and presenting content on the web."
+    }
+  ]
+}
