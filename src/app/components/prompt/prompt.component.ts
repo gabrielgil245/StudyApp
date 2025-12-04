@@ -25,6 +25,13 @@ export class PromptComponent implements OnInit {
     this.initialResponse = this.question.response;
   }
 
+  clearSelection(): void {
+    if (!this.question) return;
+
+    this.initialResponse = '';
+    this.question.response = '';
+  }
+
   goBack(): void {
     if (this.index <= 0) return;
 
@@ -35,13 +42,6 @@ export class PromptComponent implements OnInit {
     if (this.index >= this.totalQuestions - 1) return;
 
     this.retrieveQuestion.emit({ response: this.initialResponse, retrievePreviousQuestion: false });
-  }
-
-  clearSelection(): void {
-    if (!this.question) return;
-
-    this.initialResponse = '';
-    this.question.response = '';
   }
 
   confirmResponse(): void {
