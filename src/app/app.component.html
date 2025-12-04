@@ -1,7 +1,7 @@
-<div class="min-vh-100">
+<div class="min-vh-100 d-flex flex-column">
   <app-header [title]="title"></app-header>
-  <div class="container">
+  <main class="container flex-fill">
     <router-outlet></router-outlet>
-  </div>
+  </main>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>
