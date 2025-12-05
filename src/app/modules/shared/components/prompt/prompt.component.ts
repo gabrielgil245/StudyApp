@@ -15,38 +15,42 @@ export class PromptComponent implements OnInit {
 
   @Input() totalQuestions: number = 0;
 
-  @Output() retrieveQuestion: EventEmitter<{ response: string, retrievePreviousQuestion: boolean }> = new EventEmitter<{ response: string, retrievePreviousQuestion: boolean }>();
+  @Output() retrieveQuestion: EventEmitter<{ response: string, retrievePreviousQuestion: boolean, isClearSelection: boolean }> =
+    new EventEmitter<{ response: string, retrievePreviousQuestion: boolean, isClearSelection: boolean }>();
 
   initialResponse: string = '';
 
   constructor() { }
-  
+
   ngOnInit(): void {
     this.initialResponse = this.question.response;
   }
 
   clearSelection(): void {
-    if (!this.question) return;
+    if (!this.question || !this.question.response) return;
 
-    this.initialResponse = '';
-    this.question.response = '';
+    const response = '';
+    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: true });
   }
 
   goBack(): void {
     if (this.index <= 0) return;
 
-    this.retrieveQuestion.emit({ response: this.initialResponse, retrievePreviousQuestion: true });
+    const response = this.initialResponse;
+    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: true, isClearSelection: false });
   }
 
   goForward(): void {
     if (this.index >= this.totalQuestions - 1) return;
 
-    this.retrieveQuestion.emit({ response: this.initialResponse, retrievePreviousQuestion: false });
+    const response = this.initialResponse;
+    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: false });
   }
 
   confirmResponse(): void {
     if (!this.question || !this.question.response) return;
 
-    this.retrieveQuestion.emit({ response: this.question.response, retrievePreviousQuestion: false });
+    const response = this.question.response;
+    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: false });
   }
 }

@@ -5,7 +5,8 @@
                 <span>{{ question.prompt }}</span>
             </div>
             <div class="col-2 d-flex flex-wrap align-content-end">
-                <span class="float-end">Question {{ index + 1 }} of {{ totalQuestions }}</span>
+                <span id="question-{{index + 1}}" class="float-end">Question {{ index + 1 }} of {{ totalQuestions
+                    }}</span>
             </div>
         </div>
     </div>
@@ -21,21 +22,22 @@
             </div>
         </ng-container>
     </ul>
-    <div *ngIf="enableQuizNavigation; else disableQuizNavigation" class="my-3 d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" (click)="clearSelection()">Clear</button>
+    <div *ngIf="enableQuizNavigation; else enableResultsDetails" class="my-3 d-flex justify-content-end">
+        <button class="btn btn-secondary me-2" (click)="clearSelection()" [disabled]="!question.response">Clear</button>
         <button class="btn btn-outline-secondary me-2" (click)="goBack()" [disabled]="index <= 0">Back</button>
         <button class="btn btn-outline-secondary me-2" (click)="goForward()"
             [disabled]="index >= totalQuestions - 1">Forward</button>
         <button class="btn btn-primary" [disabled]="!question.response" (click)="confirmResponse()">Submit
             Response</button>
     </div>
-    <ng-template #disableQuizNavigation>
+    <ng-template #enableResultsDetails>
         <div class="grid mt-3">
             <div class="row">
                 <div class="col-6 mb-3 d-flex justify-content-center">
                     <span class="fw-bold">Category:&nbsp;</span>
                     <span class="fst-italic">{{ question.category }}</span>
-                </div><div class="col-6 mb-3 d-flex justify-content-center">
+                </div>
+                <div class="col-6 mb-3 d-flex justify-content-center">
                     <span class="fw-bold">Difficulty:&nbsp;</span>
                     <span class="fst-italic">{{ question.difficulty }}</span>
                 </div>
