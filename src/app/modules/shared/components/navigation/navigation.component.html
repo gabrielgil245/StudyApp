@@ -1,0 +1,10 @@
+<div class="grid my-3">
+    <div class="row gy-3">
+        <ng-container *ngFor="let question of questions; let i = index">
+            <div class="w-10">
+                <span class="navigation-circle d-flex justify-content-center align-items-center" [ngClass]="{'current': i === index, 'answered': question.response}"
+                    (click)="navigateTo(i)">{{i + 1}}</span>
+            </div>
+        </ng-container>
+    </div>
+</div>

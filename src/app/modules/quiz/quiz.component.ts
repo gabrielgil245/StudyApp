@@ -67,10 +67,17 @@ export class QuizComponent implements OnInit {
     question.options.sort(() => Math.random() - 0.5);
   }
 
-  handleQuestionNavigation(event: {response: string, retrievePreviousQuestion: boolean}): void {
+  handleQuestionNavigation(index: number): void {
+    this.index = index - 1; // Adjust for the upcoming preincrement in nextQuestion method
+    this.nextQuestion();
+  }
+  
+  saveAndNavigate(event: {response: string, retrievePreviousQuestion: boolean, isClearSelection: boolean}): void {
     this.questions[this.index].response = event.response;
     if (event.retrievePreviousQuestion) {
       this.index -= 2; // Adjust for the upcoming preincrement in nextQuestion method
+    } else if (event.isClearSelection) {
+      this.index -= 1; // Stay on the same question after clearing selection
     }
     this.nextQuestion();
   }

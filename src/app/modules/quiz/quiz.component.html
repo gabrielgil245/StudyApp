@@ -6,6 +6,8 @@
     </div>
 </ng-container>
 <ng-container *ngIf="!isLoading">
+    <app-navigation [questions]="questions" [index]="index"
+        (navigateToQuestion)="handleQuestionNavigation($event)"></app-navigation>
     <app-prompt *ngIf="question" [question]="question" [enableQuizNavigation]="true" [index]="index"
-        [totalQuestions]="questions.length" (retrieveQuestion)="handleQuestionNavigation($event)"></app-prompt>
+        [totalQuestions]="questions.length" (retrieveQuestion)="saveAndNavigate($event)"></app-prompt>
 </ng-container>

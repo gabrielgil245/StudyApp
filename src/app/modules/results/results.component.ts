@@ -42,4 +42,11 @@ export class ResultsComponent {
     });
     return score;
   }
+
+  scrollToQuestion(index: number): void {
+    const element = document.getElementById(`question-${index}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }

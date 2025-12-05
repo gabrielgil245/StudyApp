@@ -1,0 +1,43 @@
+.w-10 {
+    flex: 0 0 auto;
+    width: 10%;
+}
+
+.navigation-circle {
+    cursor: pointer;
+    user-select: none;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    background-color: #6c757d;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.navigation-circle:hover {
+    cursor: pointer;
+    color: #6c757d;
+    background-color: #fff;
+    border: #6c757d 1px solid;
+}
+
+.navigation-circle.current {
+    pointer-events: none;
+    background-color: #343a40;
+}
+
+.navigation-circle.answered {
+    background-color: #198754;
+}
+
+.navigation-circle.answered:hover {
+    cursor: pointer;
+    color: #198754;
+    background-color: #fff;
+    border: #198754 1px solid;
+}
+
+.navigation-circle.current.navigation-circle.answered {
+    pointer-events: none;
+    background-color: #14532d;
+}

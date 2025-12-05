@@ -6,6 +6,7 @@
     </div>
 </ng-container>
 <ng-container *ngIf="!isLoading && questions.length">
+    <app-navigation [questions]="questions" (navigateToQuestion)="scrollToQuestion($event)"></app-navigation>
     <ng-container *ngFor="let q of questions; let i = index" >
         <app-prompt [question]="q" [enableQuizNavigation]="false" [index]="i" [totalQuestions]="questions.length"></app-prompt>
     </ng-container>
