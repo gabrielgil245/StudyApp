@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PromptComponent } from 'src/app/components/prompt/prompt.component';
+import { PromptComponent } from 'src/app/modules/shared/components/prompt/prompt.component';
 import { FormsModule } from '@angular/forms';
-
-
 
 @NgModule({
   declarations: [PromptComponent],
@@ -11,6 +9,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule
   ],
-  exports: [PromptComponent]
+  exports: [
+    CommonModule, 
+    FormsModule, 
+    PromptComponent
+  ]
 })
 export class SharedModule { }

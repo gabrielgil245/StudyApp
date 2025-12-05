@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { QuizSelectionRoutingModule } from './quiz-selection-routing.module';
 import { QuizSelectionComponent } from './quiz-selection.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -10,8 +10,8 @@ import { QuizSelectionComponent } from './quiz-selection.component';
     QuizSelectionComponent
   ],
   imports: [
-    CommonModule,
-    QuizSelectionRoutingModule
+    QuizSelectionRoutingModule,
+    SharedModule
   ]
 })
 export class QuizSelectionModule { }
