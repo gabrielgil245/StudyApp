@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PromptPayload } from 'src/app/models/prompt-payload.model';
 import { Question } from 'src/app/models/question.model';
 
 @Component({
@@ -15,8 +16,8 @@ export class PromptComponent implements OnInit {
 
   @Input() totalQuestions: number = 0;
 
-  @Output() retrieveQuestion: EventEmitter<{ response: string, retrievePreviousQuestion: boolean, isClearSelection: boolean }> =
-    new EventEmitter<{ response: string, retrievePreviousQuestion: boolean, isClearSelection: boolean }>();
+  @Output() retrieveQuestion: EventEmitter<PromptPayload> =
+    new EventEmitter<PromptPayload>();
 
   initialResponse: string = '';
 
@@ -30,27 +31,27 @@ export class PromptComponent implements OnInit {
     if (!this.question || !this.question.response) return;
 
     const response = '';
-    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: true });
+    this.retrieveQuestion.emit(new PromptPayload({ response, retrievePreviousQuestion: false, clearResponse: true }));
   }
 
   goBack(): void {
     if (this.index <= 0) return;
 
     const response = this.initialResponse;
-    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: true, isClearSelection: false });
+    this.retrieveQuestion.emit(new PromptPayload({ response, retrievePreviousQuestion: true, clearResponse: false }));
   }
 
   goForward(): void {
     if (this.index >= this.totalQuestions - 1) return;
 
     const response = this.initialResponse;
-    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: false });
+    this.retrieveQuestion.emit(new PromptPayload({ response, retrievePreviousQuestion: false, clearResponse: false }));
   }
 
   confirmResponse(): void {
     if (!this.question || !this.question.response) return;
 
     const response = this.question.response;
-    this.retrieveQuestion.emit({ response, retrievePreviousQuestion: false, isClearSelection: false });
+    this.retrieveQuestion.emit(new PromptPayload({ response, retrievePreviousQuestion: false, clearResponse: false }));
   }
 }

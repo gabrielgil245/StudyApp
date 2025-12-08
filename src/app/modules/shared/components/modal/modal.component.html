@@ -1,0 +1,22 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onConfirm(false)"></button>
+            </div>
+            <div class="modal-body text-center fs-5">
+                {{modalMessage}}
+            </div>
+            <div class="modal-footer border-0">
+                <ng-container *ngIf="modalId === 'endQuiz'; else confirmButtons">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onConfirm(false)">No</button>
+                    <button type="button" class="btn btn-primary" (click)="onConfirm(true)">Yes</button>
+                </ng-container>
+                <ng-template #confirmButtons>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirm(false)">OK</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

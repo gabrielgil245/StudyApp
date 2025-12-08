@@ -1,13 +1,14 @@
-<ng-container *ngIf="isLoading">
+<ng-container *ngIf="isLoading; else quizContent">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="spinner-border spinner-large text-primary fs-1" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 </ng-container>
-<ng-container *ngIf="!isLoading">
-    <app-navigation [questions]="questions" [index]="index"
+<ng-template #quizContent>
+    <app-navigation [questions]="questions" [isQuizActive]="true" [index]="index"
         (navigateToQuestion)="handleQuestionNavigation($event)"></app-navigation>
     <app-prompt *ngIf="question" [question]="question" [enableQuizNavigation]="true" [index]="index"
         [totalQuestions]="questions.length" (retrieveQuestion)="saveAndNavigate($event)"></app-prompt>
-</ng-container>
+</ng-template>
+<app-modal [modalPayload]="modalPayload" (confirm)="navigateToResults($event)"></app-modal>

@@ -1,19 +1,19 @@
-<ng-container *ngIf="isLoading">
+<ng-container *ngIf="isLoading; else resultsContent">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="spinner-border spinner-large text-primary fs-1" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
 </ng-container>
-<ng-container *ngIf="!isLoading && questions.length">
-    <app-navigation [questions]="questions" (navigateToQuestion)="scrollToQuestion($event)"></app-navigation>
+<ng-template #resultsContent>
+    <app-navigation [questions]="questions" [isQuizActive]="false" (navigateToQuestion)="scrollToQuestion($event)"></app-navigation>
     <ng-container *ngFor="let q of questions; let i = index" >
         <app-prompt [question]="q" [enableQuizNavigation]="false" [index]="i" [totalQuestions]="questions.length"></app-prompt>
     </ng-container>
     <ng-container>
         <div class="grid mb-3">
             <div class="row text-center">
-                <h3 class="col-6 h3">Score: {{ score }} / {{ questions.length }}</h3>
+                <h4 class="col-6 h4">Score: {{ score }} / {{ questions.length }}</h4>
                 <h4 class="col-6 h4" [ngClass]="{'text-success': percentage >= 70, 'text-danger': percentage < 70}">Percentage: {{ percentage | number:'1.0-2' }}%</h4>
             </div>
         </div>
@@ -21,4 +21,4 @@
             <button class="btn btn-primary" [routerLink]="['/quiz-selection']">Back to Quiz Selection</button>
         </div>
     </ng-container>
-</ng-container>
+</ng-template>

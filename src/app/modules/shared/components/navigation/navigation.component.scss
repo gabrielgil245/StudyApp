@@ -1,6 +1,14 @@
-.w-10 {
-    flex: 0 0 auto;
-    width: 10%;
+@media (max-width: 425px) {
+    .w-xs {
+        width: 20%;
+    }
+}
+
+@media (min-width: 426px) {
+    .w-sm {
+        width: 10%;
+    }
+    
 }
 
 .navigation-circle {
@@ -27,17 +35,39 @@
 }
 
 .navigation-circle.answered {
-    background-color: #198754;
+    background-color: #0d6efd;
 }
 
 .navigation-circle.answered:hover {
+    cursor: pointer;
+    color: #0d6efd;
+    background-color: #fff;
+    border: #0d6efd 1px solid;
+}
+
+.navigation-circle.current.navigation-circle.answered {
+    pointer-events: none;
+    background-color: #0b5ed7;
+}
+
+.navigation-circle.correct {
+    background-color: #198754; // bootstrap success color
+}
+
+.navigation-circle.correct:hover {
     cursor: pointer;
     color: #198754;
     background-color: #fff;
     border: #198754 1px solid;
 }
 
-.navigation-circle.current.navigation-circle.answered {
-    pointer-events: none;
-    background-color: #14532d;
+.navigation-circle.incorrect {
+    background-color: #dc3545; // bootstrap danger color
+}
+
+.navigation-circle.incorrect:hover {
+    cursor: pointer;
+    color: #dc3545;
+    background-color: #fff;
+    border: #dc3545 1px solid;
 }

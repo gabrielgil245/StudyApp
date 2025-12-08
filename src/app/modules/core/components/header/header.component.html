@@ -1,5 +1,12 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="bg-light py-2 mb-2 border-bottom">
   <div class="container-fluid">
-    <span class="mb-0 h1">{{ title }}</span>
+    <div class="d-flex justify-content-between align-items-center mb-0">
+      <div>
+        <span class="h1">{{ title }}</span>
+      </div>
+      <div>
+        <button *ngIf="isQuizActive" class="btn btn-danger" (click)="endQuiz()">End Quiz</button>
+      </div>
+    </div>
   </div>
 </nav>

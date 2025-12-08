@@ -9,6 +9,8 @@ import { Question } from 'src/app/models/question.model';
 export class NavigationComponent {
 
   @Input({ required: true }) questions!: Question[];
+
+  @Input({ required: true }) isQuizActive!: boolean;
   
   @Input() index: number = -1;
 

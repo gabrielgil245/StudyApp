@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { PromptComponent } from 'src/app/modules/shared/components/prompt/prompt.component';
 import { FormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
     PromptComponent, 
-    NavigationComponent
+    NavigationComponent, 
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   ],
   exports: [
     PromptComponent, 
-    NavigationComponent
+    NavigationComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }

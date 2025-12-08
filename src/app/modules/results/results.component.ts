@@ -19,6 +19,7 @@ export class ResultsComponent {
 
   constructor(private quizService: QuizService, private router: Router) {
     this.questions = this.quizService.getQuestions();
+    this.quizService.setIsQuizActive(false);
   }
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class ResultsComponent {
       this.router.navigate(['/quiz-selection']);
       return;
     }
+    
     setTimeout(() => {
       this.score = this.calculateScore();
       this.percentage = (this.score / this.questions.length) * 100;
