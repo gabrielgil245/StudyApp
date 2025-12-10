@@ -4,12 +4,14 @@ import { PromptComponent } from 'src/app/modules/shared/components/prompt/prompt
 import { FormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ScrollBackToTopComponent } from './components/scroll-back-to-top/scroll-back-to-top.component';
 
 @NgModule({
   declarations: [
     PromptComponent, 
     NavigationComponent, 
-    ModalComponent
+    ModalComponent, 
+    ScrollBackToTopComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { ModalComponent } from './components/modal/modal.component';
   exports: [
     PromptComponent, 
     NavigationComponent,
-    ModalComponent
+    ModalComponent,
+    ScrollBackToTopComponent
   ]
 })
 export class SharedModule { }
