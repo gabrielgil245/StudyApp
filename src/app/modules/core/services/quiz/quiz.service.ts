@@ -19,7 +19,7 @@ export class QuizService {
   }
   
   setQuestions(questions: Question[]): void {
-    this.questions = questions.map(q => new Question(q));
+    this.questions = questions;
   }
 
   getIsQuizActiveObservable() {

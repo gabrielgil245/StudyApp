@@ -13,9 +13,9 @@ import { PromptPayload } from 'src/app/models/prompt-payload.model';
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
-  readonly incompleteResponsesWarningMessage: string = 'You have unanswered questions. Are you sure you want to end the quiz?';
+  readonly INCOMPLETE_RESPONSES_WARNING: string = 'You have unanswered questions. Are you sure you want to end the quiz?';
 
-  readonly allResponsesCompletedMessage: string = 'You have answered all questions. Do you want to submit and view results?';
+  readonly ALL_RESPONSES_COMPLETED_WARNING: string = 'You have answered all questions. Do you want to submit and view results?';
   
   questions: Question[] = [];
 
@@ -73,7 +73,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       // Is user notified must be positioned before verifyResponsesComplete to avoid unsatisfied state
       if (!this.isUserNotifiedOfQuizCompletion && this.verifyResponsesComplete()) {
-        this.openEndQuizModal(this.allResponsesCompletedMessage);
+        this.openEndQuizModal(this.ALL_RESPONSES_COMPLETED_WARNING);
         this.isLoading = false;
         return;
       }
@@ -145,6 +145,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   determineModalMessage(): string {
-    return this.verifyResponsesComplete() ? this.allResponsesCompletedMessage : this.incompleteResponsesWarningMessage;
+    return this.verifyResponsesComplete() ? this.ALL_RESPONSES_COMPLETED_WARNING : this.INCOMPLETE_RESPONSES_WARNING;
   }
 }

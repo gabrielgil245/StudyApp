@@ -2,10 +2,27 @@
     <div class="row">
         <h1 class="col-12 h1 text-center my-3">Select a Quiz JSON File</h1>
         <div class="offset-3 col-6 d-flex justify-content-center">
-            <input class="form-control my-3" type="file" (change)="onFileSelected($event)" accept=".json" required/>
+            <input class="form-control my-3" type="file" (change)="onFileSelected($event)" [disabled]="questions.length >= 100" accept=".json" required/>
         </div>
         <div *ngIf="errorMessage" class="offset-3 col-6 text-center text-danger">
-            {{ errorMessage }}
+            <h6 class="h6">
+                {{ errorMessage }}
+            </h6>
+        </div>
+        <div *ngIf="files.length > 0" class="offset-3 col-6">
+            <h3 class="h3">Uploaded Files:</h3>
+            <ul class="list-group">
+                <li *ngFor="let file of files" class="list-group-item">
+                    {{ file }}
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="questions.length > 0" class="offset-3 col-6 text-center my-3">
+            <h4 class="h4">Loaded Questions: {{ questions.length }}</h4>
+        </div>
+        <div class="offset-3 col-6 d-flex justify-content-center my-3">
+            <button class="btn btn-secondary me-3" (click)="clearFiles()" [disabled]="files.length === 0">Clear Files</button>
+            <button class="btn btn-primary" (click)="startQuiz()" [disabled]="questions.length === 0">Start Quiz</button>
         </div>
     </div>
 </div>
