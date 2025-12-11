@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ScrollBackToTopComponent } from './components/scroll-back-to-top/scroll-back-to-top.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
     PromptComponent, 
     NavigationComponent, 
     ModalComponent, 
-    ScrollBackToTopComponent
+    ScrollBackToTopComponent, 
+    TruncatePipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { ScrollBackToTopComponent } from './components/scroll-back-to-top/scroll
     PromptComponent, 
     NavigationComponent,
     ModalComponent,
-    ScrollBackToTopComponent
+    ScrollBackToTopComponent,
+    TruncatePipe
   ]
 })
 export class SharedModule { }

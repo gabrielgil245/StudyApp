@@ -1,27 +1,30 @@
 <div class="grid">
     <div class="row">
         <h1 class="col-12 h1 text-center my-3">Select a Quiz JSON File</h1>
-        <div class="offset-3 col-6 d-flex justify-content-center">
-            <input class="form-control my-3" type="file" (change)="onFileSelected($event)" [disabled]="questions.length >= 100" accept=".json" required/>
+        <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 d-flex justify-content-center">
+            <input #fileInput class="form-control my-3" type="file" (change)="onFileSelected($event)" [disabled]="questions.length >= MAX_QUESTIONS" accept=".json" multiple/>
         </div>
-        <div *ngIf="errorMessage" class="offset-3 col-6 text-center text-danger">
+        <div *ngIf="errorMessage" class="text-center text-danger">
             <h6 class="h6">
                 {{ errorMessage }}
             </h6>
         </div>
-        <div *ngIf="files.length > 0" class="offset-3 col-6">
+        <div *ngIf="quizzes.size > 0" class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
             <h3 class="h3">Uploaded Files:</h3>
-            <ul class="list-group">
-                <li *ngFor="let file of files" class="list-group-item">
-                    {{ file }}
+            <ul class="list-group rounded-0">
+                <li *ngFor="let fileName of quizzes | keyvalue" class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-wrap">{{ fileName.key | truncate:TRUNCATE_LIMIT }} - Questions: {{ fileName.value.length }}</span>
+                        <i class="fa-solid fa-trash text-danger" (click)="removeFile(fileName.key)"></i>
+                    </div>
                 </li>
             </ul>
         </div>
-        <div *ngIf="questions.length > 0" class="offset-3 col-6 text-center my-3">
+        <div *ngIf="questions.length > 0" class="text-center my-3">
             <h4 class="h4">Loaded Questions: {{ questions.length }}</h4>
         </div>
-        <div class="offset-3 col-6 d-flex justify-content-center my-3">
-            <button class="btn btn-secondary me-3" (click)="clearFiles()" [disabled]="files.length === 0">Clear Files</button>
+        <div class="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 d-flex justify-content-center my-3">
+            <button class="btn btn-secondary me-3" (click)="clearFiles()" [disabled]="quizzes.size === 0">Clear Files</button>
             <button class="btn btn-primary" (click)="startQuiz()" [disabled]="questions.length === 0">Start Quiz</button>
         </div>
     </div>

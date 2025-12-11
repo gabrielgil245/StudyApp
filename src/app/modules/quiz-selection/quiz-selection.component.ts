@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Question } from 'src/app/models/question.model';
 import { QuizService } from 'src/app/modules/core/services/quiz/quiz.service';
@@ -10,11 +10,15 @@ import { QuizSelectionError } from './enums/quiz-selection.error.enum';
   styleUrls: ['./quiz-selection.component.scss']
 })
 export class QuizSelectionComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   readonly MAX_QUESTIONS: number = 100;
+
+  readonly TRUNCATE_LIMIT: number = 35;
   
   questions: Question[] = [];
 
-  files: String[] = [];
+  quizzes: Map<string, Question[]> = new Map<string, Question[]>();
 
   errorMessage: string = '';
 
@@ -27,43 +31,44 @@ export class QuizSelectionComponent {
     const input: HTMLInputElement = event.target as HTMLInputElement;
     // Validate file selection
     if (!input.files || !input.files?.length) {
-      this.errorMessage = QuizSelectionError.NO_FILE_SELECTED;
-      return;
-    } else if (input.files.length > 1) {
-      this.errorMessage = QuizSelectionError.MULTIPLE_FILES_SELECTED;
+      this.errorMessage = '';
       return;
     }
 
-    const file: File = input.files[0];
-    this.errorMessage = this.validateFile(file);
-    if (this.errorMessage) return;
+    const files: File[] = Array.from(input.files);
+    for (const file of files) {
+      this.errorMessage = this.validateFile(file);
+      if (this.errorMessage) return;
+    }
 
-    const reader = new FileReader();
-    reader.readAsText(file); // Read the selected file as text so that we can parse it as JSON later
-    reader.onload = () => {
-      try {
-        const data: any = JSON.parse(reader.result as string);
-        this.errorMessage = this.validateQuiz(data);
-        if (this.errorMessage) return;
+    for (const file of files) {
+      const reader = new FileReader();
+      reader.readAsText(file); // Read the selected file as text so that it may be parsed as JSON
+      reader.onload = () => {
+        try {
+          const quiz: any = JSON.parse(reader.result as string);
+          this.errorMessage = this.validateQuiz(quiz);
+          if (this.errorMessage) return;
 
-        const questions = data.questions.map((q: any) => new Question(q));
-        this.questions.push(...questions);
-        this.files.push(file.name);
-        if (this.questions.length >= this.MAX_QUESTIONS) {
-          this.errorMessage = QuizSelectionError.MAX_QUESTIONS_REACHED;
+          const questions = quiz.questions.map((q: any) => new Question(q));
+          this.questions.push(...questions);
+          this.quizzes.set(file.name, questions);
+          if (this.questions.length >= this.MAX_QUESTIONS) {
+            this.errorMessage = QuizSelectionError.MAX_QUESTIONS_REACHED;
+          }
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+          this.errorMessage = QuizSelectionError.JSON_PARSE_ERROR;
         }
-      } catch (e) {
-        console.error('Error parsing JSON:', e);
-        this.errorMessage = QuizSelectionError.JSON_PARSE_ERROR;
-      }
-    };
+      };
+    }
   }
 
   validateFile(file: File): string {
     let errorMessage = '';
-    if (file.type !== 'application/json') {
+    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
       errorMessage = QuizSelectionError.INVALID_FILE_TYPE;
-    } else if (this.files.includes(file.name)) {
+    } else if (this.quizzes.has(file.name)) {
       errorMessage = QuizSelectionError.FILE_ALREADY_UPLOADED;
     }
     return errorMessage;
@@ -95,11 +100,12 @@ export class QuizSelectionComponent {
   }
 
   clearFiles(): void {
-    if (this.files.length === 0) return;
+    if (this.quizzes.size === 0) return;
 
-    this.files = [];
+    this.quizzes.clear();
     this.questions = [];
     this.errorMessage = '';
+    this.fileInput.nativeElement.value = '';
   }
 
   startQuiz(): void {
@@ -108,5 +114,15 @@ export class QuizSelectionComponent {
     this.quizService.setQuestions(this.questions);
     this.quizService.setIsQuizActive(true);
     this.router.navigate(['/quiz']);
+  }
+
+  removeFile(fileName: string): void {
+    const questionsToRemove = this.quizzes.get(fileName);
+    if (!questionsToRemove) return;
+
+    this.questions = this.questions.filter(q => !questionsToRemove.includes(q));
+    this.quizzes.delete(fileName);
+    this.errorMessage = '';
+    this.fileInput.nativeElement.value = '';
   }
 }

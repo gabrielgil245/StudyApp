@@ -1,6 +1,4 @@
 export enum QuizSelectionError {
-    NO_FILE_SELECTED = 'No file selected.',
-    MULTIPLE_FILES_SELECTED = 'Please select only one file at a time.',
     INVALID_FILE_TYPE = 'Invalid file type. Please upload a JSON file.',
     FILE_ALREADY_UPLOADED = 'This file has already been uploaded.',
     JSON_PARSE_ERROR = 'Error parsing JSON file. Please upload a valid JSON file.',
