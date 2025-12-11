@@ -6,6 +6,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ModalComponent } from './components/modal/modal.component';
 import { ScrollBackToTopComponent } from './components/scroll-back-to-top/scroll-back-to-top.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { AccordionComponent } from './components/accordion/accordion.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     NavigationComponent, 
     ModalComponent, 
     ScrollBackToTopComponent, 
-    TruncatePipe
+    TruncatePipe, 
+    AccordionComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     NavigationComponent,
     ModalComponent,
     ScrollBackToTopComponent,
-    TruncatePipe
+    TruncatePipe,
+    AccordionComponent
   ]
 })
 export class SharedModule { }

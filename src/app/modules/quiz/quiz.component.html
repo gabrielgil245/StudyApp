@@ -6,8 +6,11 @@
     </div>
 </ng-container>
 <ng-template #quizContent>
-    <app-navigation [questions]="questions" [isQuizActive]="true" [index]="index"
-        (navigateToQuestion)="handleQuestionNavigation($event)"></app-navigation>
+    <!-- Content project Navigation Component via Accordion Component -->
+    <app-accordion [title]="'Question Navigation'">
+        <app-navigation [questions]="questions" [isQuizActive]="true" [index]="index"
+            (navigateToQuestion)="handleQuestionNavigation($event)"></app-navigation>
+    </app-accordion>
     <app-prompt *ngIf="question" [question]="question" [enableQuizNavigation]="true" [index]="index"
         [totalQuestions]="questions.length" (retrieveQuestion)="saveAndNavigate($event)"></app-prompt>
 </ng-template>

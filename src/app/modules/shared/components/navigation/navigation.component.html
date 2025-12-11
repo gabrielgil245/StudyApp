@@ -1,5 +1,5 @@
 <div class="grid">
-    <div class="row gy-3 bg-light border pb-3 my-3">
+    <div class="row gy-3">
         <ng-container *ngFor="let question of questions; let i = index">
             <div class="w-xs w-sm d-flex justify-content-center align-items-center">
                 <span class="navigation-circle d-flex justify-content-center align-items-center" [ngClass]="{'current': i === index, 'answered': question.response, 
