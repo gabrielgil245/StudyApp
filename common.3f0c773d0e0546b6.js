@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkStudyApp=self.webpackChunkStudyApp||[]).push([[76],{7166:(t,i,e)=>{e.d(i,{v:()=>p});class p{constructor(s){this.id=s.id??"",this.prompt=s.prompt??"",this.options=s.options??[],this.answer=s.answer??"",this.category=s.category??"",this.difficulty=s.difficulty??"",this.explanation=s.explanation??"",this.response=s.response??""}}}}]);
