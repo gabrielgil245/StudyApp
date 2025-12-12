@@ -6,7 +6,7 @@
     </div>
 </ng-container>
 <ng-template #resultsContent>
-    <app-accordion [title]="'Question Navigation'">
+    <app-accordion [id]="ACCORDION_ID" [title]="ACCORDION_TITLE">
         <app-navigation [questions]="questions" [isQuizActive]="false" (navigateToQuestion)="scrollToQuestion($event)"></app-navigation>
     </app-accordion>
     <ng-container *ngFor="let q of questions; let i = index" >

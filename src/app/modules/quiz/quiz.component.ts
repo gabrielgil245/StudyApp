@@ -16,6 +16,10 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly INCOMPLETE_RESPONSES_WARNING: string = 'You have unanswered questions. Are you sure you want to end the quiz?';
 
   readonly ALL_RESPONSES_COMPLETED_WARNING: string = 'You have answered all questions. Do you want to submit and view results?';
+
+  readonly ACCORDION_ID: string = 'question-navigation';
+
+  readonly ACCORDION_TITLE: string = 'Question Navigation';
   
   questions: Question[] = [];
 

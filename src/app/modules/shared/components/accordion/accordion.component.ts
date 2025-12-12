@@ -6,5 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./accordion.component.scss']
 })
 export class AccordionComponent {
+  @Input({ required: true }) id: string = '';
+
   @Input({ required: true }) title: string = '';
+
+  constructor() { }
 }

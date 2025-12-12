@@ -9,6 +9,10 @@ import { QuizService } from 'src/app/modules/core/services/quiz/quiz.service';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent {
+  readonly ACCORDION_ID: string = 'question-navigation';
+
+  readonly ACCORDION_TITLE: string = 'Question Navigation';
+  
   questions: Question[] = [];
 
   isLoading: boolean = true;

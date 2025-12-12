@@ -7,7 +7,7 @@
 </ng-container>
 <ng-template #quizContent>
     <!-- Content project Navigation Component via Accordion Component -->
-    <app-accordion [title]="'Question Navigation'">
+    <app-accordion [id]="ACCORDION_ID" [title]="ACCORDION_TITLE">
         <app-navigation [questions]="questions" [isQuizActive]="true" [index]="index"
             (navigateToQuestion)="handleQuestionNavigation($event)"></app-navigation>
     </app-accordion>
