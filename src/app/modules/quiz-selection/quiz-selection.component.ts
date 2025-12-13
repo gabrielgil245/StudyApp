@@ -24,7 +24,6 @@ export class QuizSelectionComponent {
 
   constructor(private quizService: QuizService, private router: Router) {
     this.quizService.setQuestions([]); // Clear any existing quiz data on component initialization
-    this.quizService.setIsQuizActive(false);
   }
   
   onFileSelected(event: Event): void {
@@ -112,7 +111,6 @@ export class QuizSelectionComponent {
     if (this.questions.length === 0) return;
 
     this.quizService.setQuestions(this.questions);
-    this.quizService.setIsQuizActive(true);
     this.router.navigate(['/quiz']);
   }
 

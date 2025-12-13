@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ModalPayload } from 'src/app/models/modal-payload.model';
+import { ModalId } from '../../enums/modal.id.enum';
 
 @Component({
   selector: 'app-modal',
@@ -12,6 +13,8 @@ export class ModalComponent implements OnChanges {
 
   @Output() confirm: EventEmitter<ModalPayload> = new EventEmitter<ModalPayload>();
 
+  modalIdEnum: typeof ModalId = ModalId;
+  
   modalId: string = '';
   
   modalMessage: string = '';
@@ -29,7 +32,7 @@ export class ModalComponent implements OnChanges {
     const modalPayload = new ModalPayload({
       id: this.modalId,
       message: this.modalMessage,
-      confirmed
+      confirmed: confirmed
     });
     this.modalId = '';
     this.modalMessage = '';

@@ -6,6 +6,7 @@ import { QuizService } from 'src/app/modules/core/services/quiz/quiz.service';
 import { Modal } from 'bootstrap';
 import { ModalPayload } from 'src/app/models/modal-payload.model';
 import { PromptPayload } from 'src/app/models/prompt-payload.model';
+import { ModalId } from '../shared/enums/modal.id.enum';
 
 @Component({
   selector: 'app-quiz',
@@ -16,6 +17,8 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly INCOMPLETE_RESPONSES_WARNING: string = 'You have unanswered questions. Are you sure you want to end the quiz?';
 
   readonly ALL_RESPONSES_COMPLETED_WARNING: string = 'You have answered all questions. Do you want to submit and view results?';
+
+  readonly TIME_UP_WARNING: string = 'Your time is up! The quiz will now end.';
 
   readonly ACCORDION_ID: string = 'question-navigation';
 
@@ -39,7 +42,6 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private quizService: QuizService, private router: Router) {
     this.questions = this.quizService.getQuestions();
-    this.quizService.setIsQuizActive(true);
   }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['/quiz-selection']);
       return;
     }
+    this.quizService.setIsQuizActive(true);
 
     this.initializeEndQuizSessionSubscription();
     this.randomizeQuestions();
@@ -88,11 +91,11 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initializeEndQuizSessionSubscription(): void {
-    this.endQuizSessionSubscription$ = this.quizService.getEndQuizSessionObservable().subscribe((endQuizSession: boolean) => {
-      if (!endQuizSession) return; // Ignore if quiz is still active
+    this.endQuizSessionSubscription$ = this.quizService.getEndQuizSessionObservable().subscribe(({isEnd, isTimeUp}) => {
+      if (!isEnd) return; // Ignore if quiz is still active
       
-      this.openEndQuizModal();
-      this.quizService.setEndQuizSession(false);
+      this.openEndQuizModal(isTimeUp ? this.TIME_UP_WARNING : '');
+      this.quizService.setEndQuizSession(false, false);
     });
   }
 
@@ -144,7 +147,17 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openEndQuizModal(modalMessage: string = ''): void {
-    this.modalPayload = new ModalPayload({ id: 'endQuiz', message: modalMessage != '' ? modalMessage : this.determineModalMessage() });
+    const message = modalMessage != '' ? modalMessage : this.determineModalMessage();
+    let id: string = '';
+    switch (message) {
+      case this.TIME_UP_WARNING:
+        id = ModalId.TIME_UP;
+        break;
+      default:
+        id = ModalId.END_QUIZ;
+        break;
+    }
+    this.modalPayload = new ModalPayload({ id: id, message: message });
     this.modalInstance.show();
   }
 

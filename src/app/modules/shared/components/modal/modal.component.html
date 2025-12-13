@@ -3,18 +3,23 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onConfirm(false)"></button>
+                <ng-container *ngIf="modalId === modalIdEnum.TIME_UP; else closeModal">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onConfirm(true)"></button>
+                </ng-container>
+                <ng-template #closeModal>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onConfirm(false)"></button>
+                </ng-template>
             </div>
             <div class="modal-body text-center fs-3">
                 {{modalMessage}}
             </div>
             <div class="modal-footer border-0 px-3">
-                <ng-container *ngIf="modalId === 'endQuiz'; else confirmButtons">
+                <ng-container *ngIf="modalId === modalIdEnum.END_QUIZ; else confirmButtons">
                     <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal" (click)="onConfirm(false)">No</button>
                     <button type="button" class="btn btn-primary" (click)="onConfirm(true)">Yes</button>
                 </ng-container>
                 <ng-template #confirmButtons>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirm(false)">OK</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirm(true)">OK</button>
                 </ng-template>
             </div>
         </div>

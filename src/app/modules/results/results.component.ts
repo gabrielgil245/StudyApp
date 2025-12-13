@@ -23,7 +23,6 @@ export class ResultsComponent {
 
   constructor(private quizService: QuizService, private router: Router) {
     this.questions = this.quizService.getQuestions();
-    this.quizService.setIsQuizActive(false);
   }
 
   ngOnInit(): void {
@@ -31,6 +30,7 @@ export class ResultsComponent {
       this.router.navigate(['/quiz-selection']);
       return;
     }
+    this.quizService.setIsQuizActive(false);
     
     setTimeout(() => {
       this.score = this.calculateScore();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Question } from 'src/app/models/question.model';
 
 @Injectable({
@@ -10,7 +10,9 @@ export class QuizService {
 
   private isQuizActiveObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private endQuizSession: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private endQuizSession: BehaviorSubject<{isEnd: boolean, isTimeUp: boolean}> = new BehaviorSubject<{isEnd: boolean, isTimeUp: boolean}>({isEnd: false, isTimeUp: false});
+  
+  private isTimeUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
   constructor() { }
 
@@ -30,11 +32,19 @@ export class QuizService {
     this.isQuizActiveObservable.next(isQuizActive);
   }
 
-  getEndQuizSessionObservable() {
+  getEndQuizSessionObservable(): Observable<{isEnd: boolean, isTimeUp: boolean}> {
     return this.endQuizSession.asObservable();
   }
 
-  setEndQuizSession(endQuizSession: boolean): void {
-    this.endQuizSession.next(endQuizSession);
+  setEndQuizSession(isEnd: boolean, isTimeUp: boolean): void {
+    this.endQuizSession.next({isEnd, isTimeUp});
+  }
+  
+  isTimeUpObservable(): Observable<boolean> {
+    return this.isTimeUp.asObservable();
+  }
+
+  setIsTimeUp(isTimeUp: boolean): void {
+    this.isTimeUp.next(isTimeUp);
   }
 }
