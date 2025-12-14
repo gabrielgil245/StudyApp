@@ -15,12 +15,18 @@ export class QuizSelectionComponent {
   readonly MAX_QUESTIONS: number = 100;
 
   readonly TRUNCATE_LIMIT: number = 35;
+
+  readonly MIN_MINUTES: number = 15;
+
+  readonly MAX_MINUTES: number = 120;
   
   questions: Question[] = [];
 
   quizzes: Map<string, Question[]> = new Map<string, Question[]>();
 
   errorMessage: string = '';
+
+  minutes: number = 30;
 
   constructor(private quizService: QuizService, private router: Router) {
     this.quizService.setQuestions([]); // Clear any existing quiz data on component initialization
@@ -108,9 +114,10 @@ export class QuizSelectionComponent {
   }
 
   startQuiz(): void {
-    if (this.questions.length === 0) return;
+    if (this.questions.length === 0 || this.minutes < this.MIN_MINUTES || this.minutes > this.MAX_MINUTES) return;
 
     this.quizService.setQuestions(this.questions);
+    this.quizService.setMinutes(this.minutes);
     this.router.navigate(['/quiz']);
   }
 

@@ -22,6 +22,7 @@ import { AccordionComponent } from './components/accordion/accordion.component';
     FormsModule
   ],
   exports: [
+    FormsModule,
     PromptComponent, 
     NavigationComponent,
     ModalComponent,

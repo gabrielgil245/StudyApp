@@ -13,6 +13,8 @@ export class QuizService {
   private endQuizSession: BehaviorSubject<{isEnd: boolean, isTimeUp: boolean}> = new BehaviorSubject<{isEnd: boolean, isTimeUp: boolean}>({isEnd: false, isTimeUp: false});
   
   private isTimeUp: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  private minutes: number = 30; // Default to 30 minutes
   
   constructor() { }
 
@@ -46,5 +48,13 @@ export class QuizService {
 
   setIsTimeUp(isTimeUp: boolean): void {
     this.isTimeUp.next(isTimeUp);
+  }
+
+  getMinutes(): number {
+    return this.minutes;
+  }
+
+  setMinutes(minutes: number): void {
+    this.minutes = minutes;
   }
 }
