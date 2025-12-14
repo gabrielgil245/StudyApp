@@ -16,7 +16,7 @@ export class QuizSelectionComponent {
 
   readonly TRUNCATE_LIMIT: number = 35;
 
-  readonly MIN_MINUTES: number = 15;
+  readonly MIN_MINUTES: number = 5;
 
   readonly MAX_MINUTES: number = 120;
   
