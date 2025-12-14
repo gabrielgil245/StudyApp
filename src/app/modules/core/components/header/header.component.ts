@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isQuizActive: boolean = false;
 
-  timeLeftSeconds: number;
+  timeLeftInSeconds: number;
 
   timerStarted: boolean = false;
 
@@ -27,14 +27,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   destroy$: Subject<void> = new Subject<void>();
 
   constructor(public quizService: QuizService) {
-    this.timeLeftSeconds = this.DEFAULT_TIME_MINUTES;
+    this.timeLeftInSeconds = this.DEFAULT_TIME_MINUTES;
   }
 
   /**
    * Get the hours portion by calculating total hours from time left in seconds
    */
   get hours(): string {
-    return Math.floor(this.timeLeftSeconds / (3600)) // Divide by 3600 to get total hours
+    return Math.floor(this.timeLeftInSeconds / (3600)) // Divide by 3600 to get total hours
       .toString()
       .padStart(2, '0');
   }
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * Get the minutes portion by calculating the remaining minutes after extracting hours
    */
   get minutes(): string {
-    return Math.floor((this.timeLeftSeconds % 3600) / 60) // Remainder after dividing by 3600 gives remaining seconds, divide by 60 to get minutes
+    return Math.floor((this.timeLeftInSeconds % 3600) / 60) // Remainder after dividing by 3600 gives remaining seconds, divide by 60 to get minutes
       .toString()
       .padStart(2, '0');
   }
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * Get the seconds portion by calculating the remaining seconds after extracting minutes
    */
   get seconds(): string {
-    return (this.timeLeftSeconds % 60) // Remainder after dividing by 60 gives remaining seconds
+    return (this.timeLeftInSeconds % 60) // Remainder after dividing by 60 gives remaining seconds
       .toString()
       .padStart(2, '0');
   }
@@ -76,10 +76,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isQuizActiveSubscription$ = this.quizService.getIsQuizActiveObservable().pipe(takeUntil(this.destroy$)).subscribe((isActive: boolean) => {
       this.isQuizActive = isActive;
       if (!this.isQuizActive) {
-        this.timeLeftSeconds = this.DEFAULT_TIME_MINUTES; // Reset to default 30 minutes in seconds
+        this.timeLeftInSeconds = this.DEFAULT_TIME_MINUTES; // Reset to default 30 minutes in seconds
         this.stopTimer();
       } else {
-        this.timeLeftSeconds = this.quizService.getMinutes() * 60; // Set time left based on quiz service minutes
+        this.timeLeftInSeconds = this.quizService.getMinutes() * 60; // Set time left based on quiz service minutes
         this.initializeTimerSubscription();
       }
     });
@@ -97,9 +97,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.timerStarted) return;
     
     this.timerStarted = true;
-    this.timerSubscription$ = interval(1000).pipe(takeWhile(() => this.timeLeftSeconds > 0), takeUntil(this.destroy$)).subscribe(() => {
-      this.timeLeftSeconds--; // Decrement time left by 1 second
-      if (this.timeLeftSeconds <= 0) {
+    this.timerSubscription$ = interval(1000).pipe(takeWhile(() => this.timeLeftInSeconds > 0), takeUntil(this.destroy$)).subscribe(() => {
+      this.timeLeftInSeconds--; // Decrement time left by 1 second
+      if (this.timeLeftInSeconds <= 0) {
         this.stopTimer();
         this.quizService.setIsTimeUp(true);
       }
