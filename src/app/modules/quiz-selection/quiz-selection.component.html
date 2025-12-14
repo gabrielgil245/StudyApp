@@ -16,7 +16,7 @@
                 <li *ngFor="let fileName of quizzes | keyvalue" class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-wrap">{{ fileName.key | truncate:TRUNCATE_LIMIT }} - Questions: {{ fileName.value.length }}</span>
-                        <i class="fa-solid fa-trash text-danger" (click)="removeFile(fileName.key)"></i>
+                        <img class="trash" (click)="removeFile(fileName.key)" src="assets/icons/trash-solid-red-full.svg" alt="Trash Icon">
                     </div>
                 </li>
             </ul>

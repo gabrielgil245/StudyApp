@@ -9,13 +9,13 @@ This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
 
 ---
 
-## 🚀 Live Demo (GitHub Pages)
+## Live Demo (GitHub Pages)
 
 **URL:** [https://gabrielgil245.github.io/StudyApp/quiz-selection](https://gabrielgil245.github.io/StudyApp/quiz-selection)
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 This project includes the following major frontend dependencies:
 
@@ -23,7 +23,6 @@ This project includes the following major frontend dependencies:
 
 * **Bootstrap 5.3.8** — main UI framework
 * **@popperjs/core 2.11.6** — required for Bootstrap tooltips, dropdowns, and popovers
-* **@fortawesome/fontawesome-free 7.1.0** — icon library
 * **@ng-bootstrap/ng-bootstrap 15.1.2** — Bootstrap components for Angular (modals, alerts, etc.)
 
 ### **Angular & Tooling**
@@ -33,9 +32,12 @@ This project includes the following major frontend dependencies:
 * **npm 10.9.0** — package manager used for installing project dependencies
 * **angular-cli-ghpages 2.0.3** — deployment utility for GitHub Pages
 
+### Icons
+- SVG icons sourced from Font Awesome Free and included as local assets to reduce bundle size and external dependencies.
+
 ---
 
-## 🛠 Installation Instructions
+## Installation Instructions
 
 To install and run the project locally:
 
@@ -60,7 +62,7 @@ This installs all required dependencies listed in `package.json`.
 
 ---
 
-## ▶ Running the Project Locally
+## Running the Project Locally
 
 To start the local development server:
 
@@ -78,7 +80,7 @@ The app will automatically reload when you save code changes.
 
 ---
 
-## 🌐 Deploying to GitHub Pages
+## Deploying to GitHub Pages
 
 This project includes an npm script that builds and deploys the application with a single command.
 
@@ -111,7 +113,7 @@ After ~1–2 minutes, GitHub Pages will update the live site.
 
 ---
 
-## 📂 JSON File Format
+## JSON File Format
 
 Your uploaded JSON file should follow this structure:
 
@@ -138,7 +140,7 @@ Your uploaded JSON file should follow this structure:
 
 ---
 
-## 📌 Project Purpose
+## Project Purpose
 
 This application was built:
 
