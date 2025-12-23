@@ -5,7 +5,7 @@
         <span class="h1">{{ title }}</span>
       </div>
       <div>
-        <span *ngIf="isQuizActive" class="h4">Time Left: {{ hours }}:{{ minutes }}:{{ seconds }}</span>
+        <span *ngIf="isQuizActive" class="h4">Time Left: <span [ngClass]="{'text-danger': timeLeftInSeconds <= 300}">{{ hours }}:{{ minutes }}:{{ seconds }}</span></span>
       </div>
       <div>
         <button *ngIf="isQuizActive" class="btn btn-danger" (click)="endQuiz()">End Quiz</button>
