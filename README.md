@@ -5,7 +5,7 @@ This app allows users to upload their own JSON-formatted quiz files and dynamica
 
 This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
 
-> **Note:** This repository is primarily a personal project and part of a growing portfolio, but contributions are still welcome.
+> **Note:** This repository is primarily a personal project and is considered complete; it has been archived for preservation as a portfolio piece.
 
 ---
 
@@ -279,4 +279,6 @@ This application was built:
 * To demonstrate real-world frontend architecture decisions
 * As a polished portfolio project, not a tutorial exercise
 
-While public, contributions are optional and not expected.
+## Project Status
+
+This project is considered complete and has been archived for preservation as a portfolio piece.
