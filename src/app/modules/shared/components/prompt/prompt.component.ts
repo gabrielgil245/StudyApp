@@ -21,10 +21,14 @@ export class PromptComponent implements OnInit {
 
   initialResponse: string = '';
 
+  get codeLines(): string[] {
+    return this.question.code ? this.question.code.split('\n') : [];
+  }
+
   constructor() { }
 
   ngOnInit(): void {
-    this.initialResponse = this.question.response;
+    this.initialResponse = this.question ? this.question.response : '';
   }
 
   clearSelection(): void {

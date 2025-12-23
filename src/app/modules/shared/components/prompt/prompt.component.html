@@ -1,6 +1,6 @@
 <div *ngIf="question" class="my-3">
     <div class="grid pb-1 border-bottom">
-        <div class="row h5">
+        <div class="row h6">
             <div class="col-10 d-flex flex-wrap justify-content-start align-content-end">
                 <span>{{ question.prompt }}</span>
             </div>
@@ -9,6 +9,10 @@
                     }}</span>
             </div>
         </div>
+    </div>
+    <div *ngIf="question.code" class="my-3">
+        <!-- Set pre, ng-container, and code tags in one line to prevent unintended whitespace -->
+        <pre class="bg-dark p-3 m-0"><ng-container *ngFor="let line of codeLines; let i = index"><code class="text-white">{{ i + 1 }}. {{ line }}</code></ng-container></pre>
     </div>
     <ul class="my-3 list-unstyled">
         <ng-container *ngFor="let option of question.options; let i = index">
