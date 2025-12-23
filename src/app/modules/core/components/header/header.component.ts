@@ -10,11 +10,11 @@ import { interval, Subject, Subscription, takeUntil, takeWhile } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input({ required: true }) title!: string;
 
-  readonly DEFAULT_TIME_MINUTES: number = 60 * 30; // 30 minutes in seconds
+  readonly DEFAULT_TIME_IN_SECONDS: number = 1800; // 30 minutes in seconds
 
   isQuizActive: boolean = false;
 
-  timeLeftInSeconds: number;
+  timeLeftInSeconds: number = this.DEFAULT_TIME_IN_SECONDS;
 
   timerStarted: boolean = false;
 
@@ -25,10 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   timerSubscription$: Subscription | undefined;
 
   destroy$: Subject<void> = new Subject<void>();
-
-  constructor(public quizService: QuizService) {
-    this.timeLeftInSeconds = this.DEFAULT_TIME_MINUTES;
-  }
 
   /**
    * Get the hours portion by calculating total hours from time left in seconds
@@ -57,6 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .padStart(2, '0');
   }
 
+  constructor(public quizService: QuizService) { }
 
   ngOnInit(): void {
     this.initializeSubscriptions();
@@ -75,12 +72,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   initializeIsQuizActiveSubscription(): void {
     this.isQuizActiveSubscription$ = this.quizService.getIsQuizActiveObservable().pipe(takeUntil(this.destroy$)).subscribe((isActive: boolean) => {
       this.isQuizActive = isActive;
-      if (!this.isQuizActive) {
-        this.timeLeftInSeconds = this.DEFAULT_TIME_MINUTES; // Reset to default 30 minutes in seconds
-        this.stopTimer();
-      } else {
+      if (this.isQuizActive) {
         this.timeLeftInSeconds = this.quizService.getMinutes() * 60; // Set time left based on quiz service minutes
         this.initializeTimerSubscription();
+      } else {
+        this.timeLeftInSeconds = this.DEFAULT_TIME_IN_SECONDS; // Reset to default 30 minutes in seconds
+        this.stopTimer();
       }
     });
   }

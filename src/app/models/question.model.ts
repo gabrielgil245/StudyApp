@@ -1,6 +1,7 @@
 export class Question {
     id: string;
     prompt: string;
+    code: string;
     options: string[];
     answer: string;
     category: string;
@@ -11,6 +12,7 @@ export class Question {
     constructor(data: any) {
         this.id = data.id ?? '';
         this.prompt = data.prompt ?? '';
+        this.code = data.code ?? '';
         this.options = data.options ?? [];
         this.answer = data.answer ?? '';
         this.category = data.category ?? '';

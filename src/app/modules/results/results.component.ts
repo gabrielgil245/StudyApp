@@ -21,16 +21,14 @@ export class ResultsComponent {
 
   percentage: number = 0;
 
-  constructor(private quizService: QuizService, private router: Router) {
-    this.questions = this.quizService.getQuestions();
-  }
+  constructor(private quizService: QuizService, private router: Router) { }
 
   ngOnInit(): void {
+    this.retrieveQuestions();
     if (!this.questions.length) {
       this.router.navigate(['/quiz-selection']);
       return;
     }
-    this.quizService.setIsQuizActive(false);
     
     setTimeout(() => {
       this.score = this.calculateScore();
@@ -39,8 +37,14 @@ export class ResultsComponent {
     }, 300);
   }
 
+  retrieveQuestions(): void {
+    this.questions = this.quizService.getQuestions();
+    this.quizService.setIsQuizActive(false);
+    this.quizService.setQuestions([]);
+  }
+
   calculateScore(): number {
-    let score = 0;
+    let score: number = 0;
     this.questions.forEach(q => {
       if (q.response && q.response.trim().toLowerCase() === q.answer.trim().toLowerCase()) {
         score++;
@@ -50,7 +54,7 @@ export class ResultsComponent {
   }
 
   scrollToQuestion(index: number): void {
-    const element = document.getElementById(`question-${index}`);
+    const element: HTMLElement | null = document.getElementById(`question-${index}`);
     if (element) {
       element.scrollIntoView({ behavior: 'instant', block: 'start' });
     }

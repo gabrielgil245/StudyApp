@@ -40,11 +40,10 @@ export class QuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   modalInstance!: Modal;
 
-  constructor(private quizService: QuizService, private router: Router) {
-    this.questions = this.quizService.getQuestions();
-  }
+  constructor(private quizService: QuizService, private router: Router) { }
 
   ngOnInit(): void {
+    this.questions = this.quizService.getQuestions();
     if (!this.questions.length) {
       this.router.navigate(['/quiz-selection']);
       return;

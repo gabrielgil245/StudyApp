@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Question } from 'src/app/models/question.model';
 import { QuizService } from 'src/app/modules/core/services/quiz/quiz.service';
@@ -9,7 +9,7 @@ import { QuizSelectionError } from './enums/quiz-selection.error.enum';
   templateUrl: './quiz-selection.component.html',
   styleUrls: ['./quiz-selection.component.scss']
 })
-export class QuizSelectionComponent {
+export class QuizSelectionComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   readonly MAX_QUESTIONS: number = 100;
@@ -28,7 +28,9 @@ export class QuizSelectionComponent {
 
   minutes: number = 30;
 
-  constructor(private quizService: QuizService, private router: Router) {
+  constructor(private quizService: QuizService, private router: Router) { }
+
+  ngOnInit(): void {
     this.quizService.setQuestions([]); // Clear any existing quiz data on component initialization
   }
   
@@ -47,20 +49,11 @@ export class QuizSelectionComponent {
     }
 
     for (const file of files) {
-      const reader = new FileReader();
+      const reader: FileReader = new FileReader();
       reader.readAsText(file); // Read the selected file as text so that it may be parsed as JSON
       reader.onload = () => {
         try {
-          const quiz: any = JSON.parse(reader.result as string);
-          this.errorMessage = this.validateQuiz(quiz);
-          if (this.errorMessage) return;
-
-          const questions = quiz.questions.map((q: any) => new Question(q));
-          this.questions.push(...questions);
-          this.quizzes.set(file.name, questions);
-          if (this.questions.length >= this.MAX_QUESTIONS) {
-            this.errorMessage = QuizSelectionError.MAX_QUESTIONS_REACHED;
-          }
+          this.parseQuizFile(reader.result as string, file.name);
         } catch (e) {
           console.error('Error parsing JSON:', e);
           this.errorMessage = QuizSelectionError.JSON_PARSE_ERROR;
@@ -71,12 +64,26 @@ export class QuizSelectionComponent {
 
   validateFile(file: File): string {
     let errorMessage = '';
-    if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+    if (file.type !== 'application/json' || !file.name.endsWith('.json')) {
       errorMessage = QuizSelectionError.INVALID_FILE_TYPE;
     } else if (this.quizzes.has(file.name)) {
       errorMessage = QuizSelectionError.FILE_ALREADY_UPLOADED;
     }
     return errorMessage;
+  }
+
+  parseQuizFile(content: string, fileName: string): void {
+    const quiz = JSON.parse(content);
+    this.errorMessage = this.validateQuiz(quiz);
+    if (this.errorMessage) return;
+
+    const questions: Question[] = quiz.questions.map((q: any) => new Question(q));
+    this.questions.push(...questions);
+    this.quizzes.set(fileName, questions);
+
+    if (this.questions.length >= this.MAX_QUESTIONS) {
+      this.errorMessage = QuizSelectionError.MAX_QUESTIONS_REACHED;
+    }
   }
 
   validateQuiz(quiz: any): string {

@@ -9,6 +9,4 @@ export class AccordionComponent {
   @Input({ required: true }) id: string = '';
 
   @Input({ required: true }) title: string = '';
-
-  constructor() { }
 }

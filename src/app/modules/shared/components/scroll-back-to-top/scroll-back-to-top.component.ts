@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'scroll-back-to-top-button',
@@ -7,32 +7,19 @@ import { Component } from '@angular/core';
 })
 export class ScrollBackToTopComponent {
 
-  scrollBackToTopButton: HTMLElement | null = null;
-
-  constructor() {
-    this.initializeScrollListener();
-  }
+  readonly THRESHOLD: number = 200;
   
-  ngAfterViewInit(): void {
-    this.scrollBackToTopButton = document.getElementById('scrollBackToTopButton');
-  }
+  showScrollBackToTopButton: boolean = false;
 
-  initializeScrollListener() {
-    window.onscroll = () => { this.scrollFunction(); };
-  }
+  constructor() { }
 
+  @HostListener('window:scroll')
   scrollFunction() {
-    if (!this.scrollBackToTopButton) return;
-
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      this.scrollBackToTopButton.style.display = 'block';
-    } else {
-      this.scrollBackToTopButton.style.display = 'none';
-    }
+    this.showScrollBackToTopButton = window.pageYOffset > this.THRESHOLD || document.documentElement.scrollTop > this.THRESHOLD;
   }    
   
   scrollToTop() {
-    if (!this.scrollBackToTopButton) return;
+    if (!this.showScrollBackToTopButton) return;
 
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
