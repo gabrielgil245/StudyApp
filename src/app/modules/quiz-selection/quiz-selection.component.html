@@ -29,7 +29,8 @@
                 <label for="quiz-duration" class="form-label mb-0 me-2 h6">Quiz Duration in Minutes:</label>
                 <input id="quiz-duration" type="number" class="form-control focus-ring px-1 px-lg-2 w-25" 
                     [ngClass]="{'invalid-input-field': minutes < MIN_MINUTES || minutes > MAX_MINUTES}" 
-                    [(ngModel)]="minutes" [min]="MIN_MINUTES" [max]="MAX_MINUTES" step="5"/>
+                    [(ngModel)]="minutes" [min]="MIN_MINUTES" [max]="MAX_MINUTES" step="5"
+                    (blur)="onMinutesChange()"/>
             </div>
             <div class="d-flex justify-content-start justify-content-md-end">
                 <span *ngIf="minutes < MIN_MINUTES || minutes > MAX_MINUTES" class="text-danger">Minutes must be between {{ MIN_MINUTES }} and {{ MAX_MINUTES }}</span>

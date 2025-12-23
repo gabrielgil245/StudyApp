@@ -132,10 +132,10 @@ The focus of testing was to validate core business logic, component behavior, an
 
 ### Coverage Summary
 
-- Statements : 100% (340 / 340)
-- Branches : 94.53% (121 / 128)
-- Functions : 100% (93 / 93)
-- Lines : 100% (310 / 310)
+- Statements : 100% (343 / 343)
+- Branches : 94.85% (129 / 136)
+- Functions : 100% (94 / 94)
+- Lines : 100% (312 / 312)
 
 ### Notes on Coverage
 

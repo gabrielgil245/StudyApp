@@ -297,6 +297,41 @@ describe('QuizSelectionComponent', () => {
     expect(result).toBe(errorMessage);
   });
 
+  it('should not update minutes when within valid range and multiple of 5', () => {
+    const initialMinutes = 25;
+    component.minutes = initialMinutes;
+
+    component.onMinutesChange();
+    expect(component.minutes).toBe(initialMinutes);
+  });
+
+  it('should update minutes to max minutes when above max minutes', () => {
+    component.minutes = component.MAX_MINUTES + 10;
+
+    component.onMinutesChange();
+    expect(component.minutes).toBe(component.MAX_MINUTES);
+  });
+
+  it('should update minutes to min minutes when below min minutes', () => {
+    component.minutes = 1;
+
+    component.onMinutesChange();
+    expect(component.minutes).toBe(component.MIN_MINUTES);
+  });
+
+  it('should round minutes up to nearest multiple of 5', () => {
+    component.minutes = 23;
+
+    component.onMinutesChange();
+    expect(component.minutes).toBe(25);
+  });
+
+  it('should round minutes down to nearest multiple of 5', () => {
+    component.minutes = 22;
+    component.onMinutesChange();
+    expect(component.minutes).toBe(20);
+  });
+
   it('should clear files correctly', () => {
     component.quizzes.set('test.json', [mockQuestion]);
     component.questions.push(mockQuestion);

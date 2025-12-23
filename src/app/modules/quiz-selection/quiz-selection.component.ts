@@ -111,6 +111,16 @@ export class QuizSelectionComponent implements OnInit {
     return errorMessage;
   }
 
+  /**
+   * Ensures that the selected minutes value is within the allowed range and is a multiple of 5.
+   */
+  onMinutesChange(): void {
+    if (this.minutes > this.MIN_MINUTES && this.minutes < this.MAX_MINUTES && this.minutes % 5 === 0) return;
+
+    this.minutes = this.minutes > this.MAX_MINUTES ? this.MAX_MINUTES : 
+      this.minutes < this.MIN_MINUTES ? this.MIN_MINUTES : Math.round(this.minutes / 5) * 5; // Round to nearest multiple of 5
+  }
+
   clearFiles(): void {
     if (this.quizzes.size === 0) return;
 
