@@ -15,6 +15,94 @@ This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
 
 ---
 
+## Features
+
+### Quiz Workflow
+- **Single-page application with three lazy-loaded views:**
+  - **Quiz Selection:** upload and manage one or more JSON quiz files
+  - **Quiz:** answer multiple-choice or true/false questions with navigation and timing
+  - **Results:** review answers, explanations, and final score
+- Automatic routing between stages based on quiz state
+- Ability to end a quiz early without refreshing the page
+- Supports code-based multiple-choice questions with formatted code blocks
+
+---
+
+### Flexible Quiz Input
+- Upload **one or multiple JSON files** at once
+- Automatically merges questions from multiple files into a single quiz
+- Displays selected files prior to quiz start
+- Remove individual files (and their questions) before starting the quiz
+
+---
+
+### Enhanced Navigation
+- Dedicated **question navigation component** for quick question access
+- Navigation reused across both Quiz and Results views
+- Forward/back controls supplemented by direct question selection
+- Scroll-to-top button on results page for improved usability
+
+---
+
+### Timer & Challenge Mode
+- Countdown timer to increase quiz difficulty
+- Customizable quiz duration with configurable minimum and maximum values:
+  - Minimum: 5 minutes
+  - Maximum: 120 minutes (2 hours)
+- Automatic quiz submission when time expires
+- Time displayed in `hh:mm:ss` format
+- Timer automatically starts when a quiz becomes active
+- Automatic quiz submission when time expires
+
+---
+
+### User Feedback & Review
+- Color-coded question prompts indicating correct vs incorrect answers in Results view
+- Shared prompt component reused in Quiz and Results views
+- Modal confirmation when attempting to finish with unanswered questions
+- Option to review unanswered questions before submitting
+- Detailed results view including explanations
+
+---
+
+### UI & UX Enhancements
+- Responsive layout styled with Bootstrap
+- Reusable shared components for consistent UI
+- Modal dialogs for confirmations and warnings
+- Clean visual separation between quiz states
+- Lightweight SVG icons served locally to reduce bundle size
+
+---
+
+### Architecture & Design
+- Each primary page (Quiz Selection, Quiz, Results) is **lazy-loaded**
+- Ensures only required components are loaded per route
+- Reduces initial bundle size and improves performance
+- Prevents unnecessary coupling between feature components
+
+---
+
+### State Management & Core Components
+
+- A persistent **header component** acts as a core UI element and remains visible across routes
+- Quiz state is communicated using BehaviorSubjects and subscriptions
+- Enables:
+  - Conditional display of the timer
+  - Visibility of the “End Quiz” action
+  - Centralized control of quiz activity status
+- Avoids tight coupling between feature modules
+
+---
+
+### Modular Angular Design
+
+- Feature modules for each major view
+- SharedModule for reusable components and common capabilities
+- Clear separation between core, shared, and feature-specific logic
+- Fully browser-based — no backend required
+
+---
+
 ## Dependencies
 
 This project includes the following major frontend dependencies:
@@ -34,6 +122,44 @@ This project includes the following major frontend dependencies:
 
 ### Icons
 - SVG icons sourced from Font Awesome Free and included as local assets to reduce bundle size and external dependencies.
+
+---
+
+## Testing
+
+This project includes unit tests written with **Jasmine** and **Karma**.
+The focus of testing was to validate core business logic, component behavior, and edge cases.
+
+### Coverage Summary
+
+- Statements : 100% (340 / 340)
+- Branches : 94.53% (121 / 128)
+- Functions : 100% (93 / 93)
+- Lines : 100% (310 / 310)
+
+### Notes on Coverage
+
+
+### Notes on Coverage
+
+- **100% coverage** achieved for statements, functions, and lines
+- Branch coverage remains slightly below 100% due to intentionally untested defensive branches and unreachable edge cases
+- Models and simple data structures are tested where meaningful behavior exists
+- Asynchronous logic (timers, file uploads, subscriptions) is covered using controlled mocks and spies
+
+### Running Tests
+
+```bash
+ng test
+```
+
+### Generating Coverage Report
+
+```bash
+ng test --code-coverage
+```
+
+The coverage report is generated in the `/coverage` directory can be viewed by opening `index.html` in a browser.
 
 ---
 
@@ -123,6 +249,7 @@ Your uploaded JSON file should follow this structure:
     {
       "id": "1",
       "prompt": "What is HTML5?",
+      "code": "",
       "options": [
         "A programming language",
         "A markup language for structuring and presenting content on the web",
@@ -132,7 +259,8 @@ Your uploaded JSON file should follow this structure:
       "answer": "A markup language for structuring and presenting content on the web",
       "category": "Technology",
       "difficulty": "Easy",
-      "explanation": "HTML5 is the latest version of the Hypertext Markup Language used for structuring and presenting content on the web."
+      "explanation": "HTML5 is the latest version of the Hypertext Markup Language used for structuring and presenting content on the web.",
+      "response": ""
     }
   ]
 }
@@ -144,8 +272,9 @@ Your uploaded JSON file should follow this structure:
 
 This application was built:
 
-* As a **personal tool** for studying and quiz generation
-* To practice and demonstrate **Angular**, **Bootstrap**, and **frontend architecture**
-* As part of a growing **portfolio of development projects**
+* As a personal study tool for repeated self-assessment
+* To explore Angular routing, state management, and modular design
+* To demonstrate real-world frontend architecture decisions
+* As a polished portfolio project, not a tutorial exercise
 
 While public, contributions are optional and not expected.
