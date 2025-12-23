@@ -71,6 +71,8 @@ This project is deployed to GitHub Pages using **angular-cli-ghpages v2.0.3**.
 - Modal dialogs for confirmations and warnings
 - Clean visual separation between quiz states
 - Lightweight SVG icons served locally to reduce bundle size
+- Visual timer warnings when remaining time is low
+- Intelligent input normalization for quiz duration configuration
 
 ---
 
